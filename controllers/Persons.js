@@ -4,8 +4,8 @@ const generateToken = require("../config/generateToken");
 exports.save = (req, res) =>
   Persons.create(req.body)
     .then((person) => {
-      const _person = { ...person._doc }; //'_doc' is use to get the actual value because in node.js is when ... it returns many value
-      delete _person.password; //manual delete
+      const _person = { ...person._doc };
+      delete _person.password;
       res.status(201).json({
         success: "Person created successfully",
         payload: _person,

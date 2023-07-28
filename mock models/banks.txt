@@ -1,0 +1,10 @@
+exam - objectId of the exam
+question - string 
+choices - array max of 5 items in array min of 2 items ['', '', '', '', '']
+answer - number index of correct choice
+
+endpoints
+-/find?exam=objectId
+-/save
+-/update
+-/destroy
