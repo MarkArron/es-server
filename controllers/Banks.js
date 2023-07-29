@@ -1,4 +1,5 @@
 const Banks = require("../models/Banks");
+const Exams = require("../models/Exams");
 
 const validateChoices = (bank) => {
   if (bank.choices.length < 2) return "you must have at least 2 choices";
@@ -20,16 +21,24 @@ exports.save = (req, res) => {
     .catch((err) => res.status(400).json({ error: err.message }));
 };
 
-exports.find = (req, res) =>
-  Banks.find()
+exports.find = (req, res) => {
+  Exams.findOne({ _id: req.query.exam })
+    .then((exam) => {
+      Banks.find({ exam: exam._id })
+        .populate("exam", "title")
+        .then((banks) => {
+          const shuffleArray = (arr) => arr.sort(() => Math.random() - 0.5);
+          const shuffledBanks = shuffleArray(banks);
 
-    .then((banks) =>
-      res.json({
-        success: "Banks fetched successfully",
-        payload: banks,
-      })
-    )
+          res.json({
+            success: "Banks found successfully",
+            payload: shuffledBanks,
+          });
+        })
+        .catch((err) => res.status(400).json({ error: err.message }));
+    })
     .catch((err) => res.status(400).json({ error: err.message }));
+};
 
 exports.update = (req, res) => {
   const validationError = validateChoices(req.body);

@@ -3,8 +3,8 @@ const middleware = require("../middleware/jwt");
 const { save, find, browse } = require("../controllers/Scores");
 
 router
-  .post("/save", save)
+  .post("/save", middleware, save)
   .get("/find", middleware, find)
-  .put("/browse", middleware, browse);
+  .get("/browse", middleware, browse);
 
 module.exports = router;

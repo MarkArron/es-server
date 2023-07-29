@@ -1,36 +1,35 @@
-const Exams = require("../models/Scores");
+const Scores = require("../models/Scores");
 
 exports.save = (req, res) =>
-  Persons.create(req.body)
-    .then((person) => {
-      const _person = { ...person._doc }; //'_doc' is use to get the actual value because in node.js is when ... it returns many value
-      delete _person.password; //manual delete
+  Scores.create(req.body)
+    .then((score) => {
       res.status(201).json({
-        success: "Scores created successfully",
-        payload: _person,
+        success: "Score saved successfully",
+        payload: score,
       });
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 
 exports.browse = (req, res) =>
-  Persons.find()
-    .select("-password") //remove password (not show to anyone) //select can only use in 'find()' and 'findOne()'
-    .then((persons) =>
-      res.json({
+  Scores.find()
+    .populate("examinee", "username")
+    .populate("exam", "title")
+    .then((scores) =>
+      res.status(201).json({
         success: "Scores fetched successfully",
-        payload: persons,
+        payload: scores,
       })
     )
     .catch((err) => res.status(400).json({ error: err.message }));
 
 exports.find = (req, res) =>
-  Persons.findByIdAndUpdate(req.body._id, req.body, { new: true })
-    .then((person) => {
-      const _person = { ...person._doc };
-      delete _person.password;
-      res.json({
-        success: "Scores updated successfully",
-        payload: _person,
+  Scores.find({ examinee: req.query.examinee })
+    .populate("examinee", "username")
+    .populate("exam", "title")
+    .then((examinee) => {
+      res.status(201).json({
+        success: "Scores found successfully",
+        payload: examinee,
       });
     })
     .catch((err) => res.status(400).json({ error: err.message }));

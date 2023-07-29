@@ -3,7 +3,7 @@ const middleware = require("../middleware/jwt");
 const { save, browse, update, destroy } = require("../controllers/Exams");
 
 router
-  .post("/save", save)
+  .post("/save", middleware, save)
   .get("/browse", middleware, browse)
   .put("/update", middleware, update)
   .delete("/:id/destroy", middleware, destroy);
