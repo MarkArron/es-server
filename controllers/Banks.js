@@ -21,24 +21,16 @@ exports.save = (req, res) => {
     .catch((err) => res.status(400).json({ error: err.message }));
 };
 
-exports.find = (req, res) => {
-  Exams.findOne({ _id: req.query.exam })
-    .then((exam) => {
-      Banks.find({ exam: exam._id })
-        .populate("exam", "title")
-        .then((banks) => {
-          const shuffleArray = (arr) => arr.sort(() => Math.random() - 0.5);
-          const shuffledBanks = shuffleArray(banks);
-
-          res.json({
-            success: "Banks found successfully",
-            payload: shuffledBanks,
-          });
-        })
-        .catch((err) => res.status(400).json({ error: err.message }));
-    })
+exports.find = (req, res) =>
+  Banks.find({ exam: req.query.exam })
+    .populate("exam", "title")
+    .then((banks) =>
+      res.json({
+        success: "Banks found successfully",
+        payload: banks.sort(() => Math.random() - 0.5),
+      })
+    )
     .catch((err) => res.status(400).json({ error: err.message }));
-};
 
 exports.update = (req, res) => {
   const validationError = validateChoices(req.body);
