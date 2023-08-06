@@ -1,5 +1,4 @@
 const Banks = require("../models/Banks");
-const Exams = require("../models/Exams");
 
 const validateChoices = (bank) => {
   if (bank.choices.length < 2) return "you must have at least 2 choices";

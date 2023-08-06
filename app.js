@@ -9,7 +9,7 @@ require("dotenv").config();
 require("./config/db")()
   .then(() => {
     const corsConfig = {
-      origin: "http://localhost:3000", // Who's going to connect, can be array for many. Do not use wildcard (*)
+      origin: ["http://localhost:3000", "http://localhost:3001"], // Who's going to connect, can be array for many. Do not use wildcard (*)
       methods: ["GET", "POST", "PUT", "DELETE"], // List only` available methods
       credentials: true, // Must be set to true
       allowedHeaders: [
