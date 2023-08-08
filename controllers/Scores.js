@@ -12,7 +12,7 @@ exports.save = (req, res) =>
 
 exports.browse = (req, res) =>
   Scores.find()
-    .populate("examinee", "username")
+    .populate("examinee", "email")
     .populate("exam", "title")
     .then((scores) =>
       res.status(201).json({
@@ -23,8 +23,8 @@ exports.browse = (req, res) =>
     .catch((err) => res.status(400).json({ error: err.message }));
 
 exports.find = (req, res) =>
-  Scores.find({ examinee: req.query.examinee })
-    .populate("examinee", "username")
+  Scores.find(req.query)
+    .populate("examinee", "email")
     .populate("exam", "title")
     .then((examinee) => {
       res.status(201).json({

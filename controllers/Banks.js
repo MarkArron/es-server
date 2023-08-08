@@ -26,7 +26,7 @@ exports.find = (req, res) =>
     .then((banks) =>
       res.json({
         success: "Banks found successfully",
-        payload: banks.sort(() => Math.random() - 0.5),
+        payload: banks, //.sort(() => Math.random() - 0.5),
       })
     )
     .catch((err) => res.status(400).json({ error: err.message }));
