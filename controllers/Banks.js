@@ -7,8 +7,8 @@ const validateChoices = (bank) => {
 };
 
 exports.save = (req, res) => {
-  const validationError = validateChoices(req.body);
-  if (validationError) return res.status(400).json({ error: validationError });
+  if (validateChoices(req.body))
+    return res.status(400).json({ error: validationError });
 
   Banks.create(req.body)
     .then((bank) => {
