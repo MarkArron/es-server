@@ -43,15 +43,19 @@ exports.statistics = (req, res) =>
     .then((scores) => {
       const exams = Array.from(new Set(scores.map((score) => score.exam)));
 
+      const passedExaminees = [];
+
       const passingPercentages = exams.map((exam) => {
-        const passedExaminees = scores.filter(
+        const passedExamineesForExam = scores.filter(
           (score) => score.score >= score.bank * 0.7 && score.exam?.equals(exam)
         );
+
+        passedExaminees.push(...passedExamineesForExam);
 
         const allExaminees = scores.filter((score) => score.exam?.equals(exam));
 
         const passingPercentage =
-          (passedExaminees.length / allExaminees.length) * 100;
+          (passedExamineesForExam.length / allExaminees.length) * 100;
 
         return {
           exam: exam.title,
@@ -61,6 +65,7 @@ exports.statistics = (req, res) =>
 
       res.status(201).json({
         success: "Passing percentages per exam calculated successfully",
+        passedExaminees,
         payload: passingPercentages
           .sort((a, b) => b.percentage - a.percentage)
           .slice(0, 10),
@@ -68,7 +73,7 @@ exports.statistics = (req, res) =>
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 
-exports.statistics2 = (req, res) =>
+exports.statistics2 = (req, res) => {
   Scores.find(req.query)
     .populate("examinee", "email")
     .populate("exam", "title")
@@ -78,8 +83,10 @@ exports.statistics2 = (req, res) =>
         .then((scores) => {
           const exams = Array.from(new Set(scores.map((score) => score.exam)));
 
+          const passedExaminees = [];
+
           const examineeExams = exams.map((exam) => {
-            const passedExaminees = scores.filter(
+            const passedExamineesForExam = scores.filter(
               (score) =>
                 score.score >= score.bank * 0.7 && score.exam?.equals(exam)
             );
@@ -89,7 +96,7 @@ exports.statistics2 = (req, res) =>
             );
 
             const passingPercentage =
-              (passedExaminees.length / allExaminees.length) * 100;
+              (passedExamineesForExam.length / allExaminees.length) * 100;
 
             const matchingExamineeScore = examineeScores.find((examineeScore) =>
               examineeScore.exam.equals(exam)
@@ -119,3 +126,4 @@ exports.statistics2 = (req, res) =>
         .catch((err) => res.status(400).json({ error: err.message }));
     })
     .catch((err) => res.status(400).json({ error: err.message }));
+};
