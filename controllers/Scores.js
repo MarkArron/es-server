@@ -73,7 +73,7 @@ exports.statistics = (req, res) =>
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 
-exports.statistics2 = (req, res) => {
+exports.examinee_statistics = (req, res) => {
   Scores.find(req.query)
     .populate("examinee", "email")
     .populate("exam", "title")
