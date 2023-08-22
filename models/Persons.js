@@ -19,12 +19,12 @@ const schema = new mongoose.Schema(
     role: {
       type: String,
       enum: {
-        values: ["ADMINISTRATOR", "EXAMINEE"],
+        values: ["ADMINISTRATOR", "EXAMINEE", "RECEPTIONIST"],
         message: "Please choose a valid role from the predefined options.",
       },
     },
     dob: {
-      type: String,
+      type: Date,
       required: true,
     },
   },
