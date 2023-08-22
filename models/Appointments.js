@@ -15,7 +15,7 @@ const schema = new mongoose.Schema(
       },
     },
     reason: {
-      type: string,
+      type: String,
       required: function () {
         return this.status === "Denied";
       },
