@@ -12,6 +12,8 @@ exports.save = (req, res) =>
 
 exports.browse = (req, res) =>
   Schedules.find()
+    .populate("admin", "username")
+    .populate("exam", "title")
     .then((schedule) =>
       res.json({
         success: "Schedules found successfully",
