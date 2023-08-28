@@ -47,6 +47,7 @@ exports.browse = (req, res) =>
         },
       ],
     })
+    .populate("examinee", "email")
     .then((appointments) => {
       res.status(201).json({
         success: "Appointments created successfully",
@@ -79,8 +80,8 @@ exports.examinee_appointments = (req, res) =>
     .catch((err) => res.status(400).json({ error: err.message }));
 
 exports.update_status = (req, res) => {
-  const updateStatus = { status: req.body.status };
-  Appointments.findByIdAndUpdate(req.body._id, updateStatus, { new: true })
+  const updateFields = { status: req.body.status, reason: req.body.reason };
+  Appointments.findByIdAndUpdate(req.body._id, updateFields, { new: true })
     .then((appointment) => {
       res.json({
         success: "Appointment's status updated successfully",
