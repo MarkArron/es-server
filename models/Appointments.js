@@ -16,9 +16,6 @@ const schema = new mongoose.Schema(
     },
     reason: {
       type: String,
-      required: function () {
-        return this.status === "Denied";
-      },
     },
     schedule: {
       type: mongoose.Schema.Types.ObjectId,
