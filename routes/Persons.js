@@ -6,13 +6,13 @@ const {
   update,
   destroy,
   login,
+  promote_demote,
 } = require("../controllers/Persons");
 
 router
   .post("/save", save)
   .get("/login", login)
   .get("/browse", middleware, browse)
-  .put("/update", middleware, update)
-  .delete("/:id/destroy", middleware, destroy);
-
+  .delete("/:id/destroy", middleware, destroy)
+  .put("/promote_demote", middleware, promote_demote);
 module.exports = router;
