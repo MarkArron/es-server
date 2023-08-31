@@ -5,7 +5,7 @@ const {
   find,
   browse,
   statistics,
-  statistics2,
+  examinee_statistics,
 } = require("../controllers/Scores");
 
 router
@@ -13,6 +13,6 @@ router
   .get("/find", middleware, find)
   .get("/browse", middleware, browse)
   .get("/statistics", middleware, statistics)
-  .get("/statistics2", middleware, statistics2);
+  .get("/examinee_statistics", middleware, examinee_statistics);
 
 module.exports = router;
