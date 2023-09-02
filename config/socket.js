@@ -2,6 +2,8 @@ const socket = (io) =>
   io.on("connection", (stream) => {
     console.log(`connection established by: ${stream.id}`); // show everytime someone connect. You should connect socket in app.js
 
+    stream.on("join_room", (room) => stream.join(room));
+
     stream.on("send_click", (clicks) =>
       stream.broadcast.emit("recieve_click", clicks)
     );
