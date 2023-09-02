@@ -32,7 +32,7 @@ exports.update = (req, res) =>
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 
-exports.exam_schedule = (req, res) => {
+exports.exam_schedules = (req, res) => {
   Schedules.find(req.query)
     .populate("admin", "username")
     .populate("exam", "title")
@@ -44,3 +44,14 @@ exports.exam_schedule = (req, res) => {
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 };
+
+exports.admin_schedules = (req, res) =>
+  Schedules.find(req.query)
+    .populate("exam", "title")
+    .then((schedules) => {
+      res.status(201).json({
+        success: "Schedules found successfully",
+        payload: schedules,
+      });
+    })
+    .catch((err) => res.status(400).json({ error: err.message }));
