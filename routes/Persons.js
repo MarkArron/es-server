@@ -14,5 +14,5 @@ router
   .get("/login", login)
   .get("/browse", middleware, browse)
   .delete("/:id/destroy", middleware, destroy)
-  .put("/promote_demote", middleware, promote_demote);
+  .put("/update", middleware, promote_demote);
 module.exports = router;
