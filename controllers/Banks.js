@@ -21,7 +21,7 @@ exports.save = (req, res) => {
 };
 
 exports.find = (req, res) =>
-  Banks.find({ exam: req.query.exam })
+  Banks.find(req.query)
     .populate("exam", "title")
     .then((banks) =>
       res.json({

@@ -13,6 +13,7 @@ const schema = new mongoose.Schema(
     admin: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Persons",
+      required: true,
     },
     title: {
       type: String,
@@ -21,6 +22,15 @@ const schema = new mongoose.Schema(
     exam: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Exams",
+      required: true,
+    },
+    maxSlots: {
+      type: Number,
+      required: true,
+    },
+    slotsTaken: {
+      type: Number,
+      required: true,
     },
   },
   { timestamps: true }

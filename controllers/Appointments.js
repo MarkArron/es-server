@@ -50,7 +50,7 @@ exports.browse = (req, res) =>
     .populate("examinee", "email")
     .then((appointments) => {
       res.status(201).json({
-        success: "Appointments created successfully",
+        success: "Appointments founds successfully",
         payload: appointments,
       });
     })
@@ -73,7 +73,7 @@ exports.examinee_appointments = (req, res) =>
     })
     .then((appointments) => {
       res.status(201).json({
-        success: "Appointments created successfully",
+        success: "Appointments found successfully",
         payload: appointments,
       });
     })
@@ -90,3 +90,14 @@ exports.update_status = (req, res) => {
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 };
+
+exports.examinees_room = (req, res) =>
+  Appointments.find(req.query)
+    .populate("examinee", ["email", "username"])
+    .then((appointments) => {
+      res.status(201).json({
+        success: "Appointments found successfully",
+        payload: appointments,
+      });
+    })
+    .catch((err) => res.status(400).json({ error: err.message }));
