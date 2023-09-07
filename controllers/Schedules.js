@@ -14,44 +14,33 @@ exports.browse = (req, res) =>
   Schedules.find()
     .populate("admin", "username")
     .populate("exam", "title")
-    .then((schedule) =>
+    .then((schedules) =>
       res.json({
         success: "Schedules found successfully",
-        payload: schedule,
+        payload: schedules,
       })
     )
     .catch((err) => res.status(400).json({ error: err.message }));
 
 exports.update = (req, res) =>
   Schedules.findByIdAndUpdate(req.body._id, req.body, { new: true })
-    .then((schedule) => {
+    .then((schedules) => {
       res.json({
         success: "Schedule updated successfully",
-        payload: schedule,
+        payload: schedules,
       });
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 
-exports.exam_schedules = (req, res) => {
+exports.find = (req, res) => {
   Schedules.find(req.query)
     .populate("admin", "username")
     .populate("exam", "title")
     .then((schedule) => {
       res.json({
-        success: "Exam schedule found successfully",
+        success: "Schedules found successfully",
         payload: schedule,
       });
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 };
-
-exports.admin_schedules = (req, res) =>
-  Schedules.find(req.query)
-    .populate("exam", "title")
-    .then((schedules) => {
-      res.status(201).json({
-        success: "Schedules found successfully",
-        payload: schedules,
-      });
-    })
-    .catch((err) => res.status(400).json({ error: err.message }));
