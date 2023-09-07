@@ -2,16 +2,14 @@ const router = require("express").Router();
 const middleware = require("../middleware/jwt");
 const {
   save,
-  examinee_appointments,
   update_status,
   browse,
-  examinees_room,
+  find,
 } = require("../controllers/Appointments");
 
 router
   .post("/save", middleware, save)
-  .get("/examinee_appointments", middleware, examinee_appointments)
-  .get("/examinees_room", middleware, examinees_room)
+  .get("/find", middleware, find)
   .get("/browse", middleware, browse)
   .put("/update", middleware, update_status);
 

@@ -56,7 +56,7 @@ exports.browse = (req, res) =>
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 
-exports.examinee_appointments = (req, res) =>
+exports.find = (req, res) =>
   Appointments.find(req.query)
     .populate({
       path: "schedule",
@@ -71,6 +71,7 @@ exports.examinee_appointments = (req, res) =>
         },
       ],
     })
+    .populate("examinee", ["username", "email"])
     .then((appointments) => {
       res.status(201).json({
         success: "Appointments found successfully",
