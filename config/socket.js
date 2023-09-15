@@ -13,7 +13,7 @@ const socket = (io) =>
     });
 
     stream.on("start_exam", (data) => {
-      stream.to(data._schedule?._id).emit("start_exam", data);
+      io.to(data._schedule?._id).emit("start_exam", data);
       console.log(data);
     });
   });
