@@ -80,9 +80,8 @@ exports.find = (req, res) =>
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 
-exports.update_status = (req, res) => {
-  const updateFields = { status: req.body.status, reason: req.body.reason };
-  Appointments.findByIdAndUpdate(req.body._id, updateFields, { new: true })
+exports.update = (req, res) => {
+  Appointments.findByIdAndUpdate(req.body._id, req.body, { new: true })
     .then((appointment) => {
       res.json({
         success: "Appointment's status updated successfully",
@@ -91,14 +90,3 @@ exports.update_status = (req, res) => {
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 };
-
-exports.examinees_room = (req, res) =>
-  Appointments.find(req.query)
-    .populate("examinee", ["email", "username"])
-    .then((appointments) => {
-      res.status(201).json({
-        success: "Appointments found successfully",
-        payload: appointments,
-      });
-    })
-    .catch((err) => res.status(400).json({ error: err.message }));
