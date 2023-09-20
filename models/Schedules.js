@@ -32,6 +32,14 @@ const schema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    didStart: {
+      type: Boolean,
+      default: false,
+    },
+    didFinish: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

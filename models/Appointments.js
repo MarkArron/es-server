@@ -10,7 +10,7 @@ const schema = new mongoose.Schema(
     status: {
       type: String,
       enum: {
-        values: ["Pending", "Approved", "Denied", "Completed"],
+        values: ["Pending", "Approved", "Denied", "Completed", "Failed"],
         message: "Please choose a valid status from the predefined options.",
       },
       default: "Pending",
@@ -24,13 +24,8 @@ const schema = new mongoose.Schema(
       required: true,
     },
     attendance: {
-      type: String,
-      enum: {
-        values: ["-", "Present"],
-        message:
-          "Please choose a valid attendance from the predefined options.",
-      },
-      default: "-",
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }
