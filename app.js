@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const http = require("http");
 const { red, green } = require("colorette");
 const cors = require("cors");
@@ -31,6 +32,12 @@ require("./config/db")()
     app.use(express.json({ limit: "50mb" }));
 
     require("./routes")(app);
+
+    // used when deployed, make sure it is below routes.
+    app.use(express.static(path.join(__dirname, "./view")));
+    app.get("*", (req, res) =>
+      res.sendFile(path.resolve(__dirname, "./", "view", "index.html"))
+    );
 
     const server = http.createServer(app);
 
