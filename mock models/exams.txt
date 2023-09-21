@@ -1,0 +1,8 @@
+title - string
+description - string
+
+endpoints
+-/browse
+-/save
+-/update
+-/destroy
