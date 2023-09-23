@@ -6,6 +6,16 @@ const validateChoices = (bank) => {
   if (bank.choices.length > 5) return "you have exceeded the maximum 5 choices";
 };
 
+exports.browse = (req, res) =>
+  Banks.find()
+    .then((banks) =>
+      res.json({
+        success: "Banks fetched successfully",
+        payload: banks,
+      })
+    )
+    .catch((err) => res.status(400).json({ error: err.message }));
+
 exports.save = (req, res) => {
   if (validateChoices(req.body))
     return res.status(400).json({ error: validationError });
@@ -26,7 +36,7 @@ exports.find = (req, res) =>
     .then((banks) =>
       res.json({
         success: "Banks found successfully",
-        payload: banks, //.sort(() => Math.random() - 0.5),
+        payload: banks,
       })
     )
     .catch((err) => res.status(400).json({ error: err.message }));

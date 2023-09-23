@@ -57,8 +57,7 @@ exports.login = (req, res) => {
 };
 
 exports.promote_demote = (req, res) => {
-  const updatedRole = { role: req.body.role };
-  Persons.findByIdAndUpdate(req.body._id, updatedRole, { new: true })
+  Persons.findByIdAndUpdate(req.body._id, req.body, { new: true })
     .then((person) => {
       res.json({
         success: "Person's role updated successfully",
