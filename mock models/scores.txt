@@ -1,8 +1,0 @@
-exam - objectId of exam
-examinee - objectId of examinee
-score - number 
-
-endpoints
--/browse
--/find?examinee=objectId
--/save

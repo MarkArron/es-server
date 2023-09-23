@@ -1,5 +1,0 @@
-username - string
-email - string unique
-password - string
-role - enum ['administrator', 'examinee']
-dob - string
