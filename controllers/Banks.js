@@ -8,6 +8,7 @@ const validateChoices = (bank) => {
 
 exports.browse = (req, res) =>
   Banks.find()
+    .sort({ createdAt: -1 })
     .then((banks) =>
       res.json({
         success: "Banks fetched successfully",
@@ -32,6 +33,7 @@ exports.save = (req, res) => {
 
 exports.find = (req, res) =>
   Banks.find(req.query)
+    .sort({ createdAt: -1 })
     .populate("exam", "title")
     .then((banks) =>
       res.json({

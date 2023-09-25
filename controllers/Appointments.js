@@ -34,6 +34,7 @@ exports.save = (req, res) => {
 
 exports.browse = (req, res) =>
   Appointments.find()
+    .sort({ createdAt: -1 })
     .populate({
       path: "schedule",
       populate: [
@@ -58,6 +59,7 @@ exports.browse = (req, res) =>
 
 exports.find = (req, res) =>
   Appointments.find(req.query)
+    .sort({ createdAt: -1 })
     .populate({
       path: "schedule",
       populate: [

@@ -15,6 +15,7 @@ exports.save = (req, res) =>
 
 exports.browse = (req, res) =>
   Persons.find()
+    .sort({ createdAt: -1 })
     .select("-password") //remove password (not show to anyone) //select can only use in 'find()' and 'findOne()'
     .then((persons) =>
       res.json({

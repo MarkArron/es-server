@@ -12,6 +12,7 @@ exports.save = (req, res) =>
 
 exports.browse = (req, res) =>
   Exams.find()
+    .sort({ createdAt: -1 })
     .then((exams) =>
       res.json({
         success: "Exams fetched successfully",
